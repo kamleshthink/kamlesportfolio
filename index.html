@@ -201,6 +201,9 @@
         /* About Section */
         .about {
             padding: 6rem 0;
+            background: linear-gradient(45deg, #f0f9ff 0%, #e0f2fe 100%); /* Light blue gradient */
+            background-size: 400% 400%; /* Make the background much larger */
+            animation: gradientMove 10s ease infinite alternate; /* Slower, smoother animation */
         }
         
         .section-title {
@@ -252,7 +255,21 @@
         /* Skills Section */
         .skills {
             padding: 6rem 0;
-            background-color: #f1f5f9;
+            background: linear-gradient(135deg, #e0f7fa 0%, #e1f5fe 50%, #e3f2fd 100%); /* Subtle gradient */
+            background-size: 200% 200%; /* Make the background larger for animation */
+            animation: moveGradient 15s ease infinite alternate; /* Apply animation */
+        }
+        
+        @keyframes moveGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
         
         .skills-content {
@@ -307,6 +324,21 @@
         /* Experience Section */
         .experience {
             padding: 6rem 0;
+            background: linear-gradient(-45deg, #e3f2fd 0%, #e1f5fe 50%, #e0f7fa 100%); /* Another subtle gradient */
+            background-size: 400% 400%; /* Large background for animation */
+            animation: gradientMove 12s ease infinite alternate reverse; /* Slightly different animation speed and direction */
+        }
+        
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
         
         .timeline {
@@ -383,7 +415,7 @@
         /* Projects Section */
         .projects {
             padding: 6rem 0;
-            background-color: #f1f5f9;
+            background: linear-gradient(180deg, #e3f2fd 0%, #ffffff 100%); /* Light gradient from top to bottom */
         }
         
         .projects-grid {
@@ -448,6 +480,7 @@
         /* Contact Section */
         .contact {
             padding: 6rem 0;
+            background: linear-gradient(0deg, #e0f7fa 0%, #ffffff 100%); /* Light gradient from bottom to top */
         }
         
         .contact-content {
@@ -1134,6 +1167,72 @@
     border-radius: 15px;
     font-size: 14px;
     font-weight: 500;
+}
+
+/* Hero Section Button Styles */
+.hero-buttons .btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-weight: 600;
+    padding: 12px 30px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-buttons .btn-outline:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.2);
+}
+
+.hero-buttons .btn-outline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent); /* Swipe effect */
+    transition: all 0.7s ease;
+}
+
+.hero-buttons .btn-outline:hover::before {
+    left: 100%;
+}
+
+/* Contact Form Button Style */
+.contact-form .btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1rem;
+}
+
+.contact-form .btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+.contact-form .btn:active {
+    transform: translateY(-1px);
 }
     </style>
 </head>
