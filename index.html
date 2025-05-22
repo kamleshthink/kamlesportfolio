@@ -807,7 +807,9 @@
     max-width: 800px;
     margin: 0 auto;
     overflow: hidden;
-    height: 300px; /* Fixed height for smooth transitions */
+    height: 350px; /* Increased height for better content visibility */
+    padding: 0 10%; /* Add padding to ensure buttons are visible */
+    box-sizing: content-box; /* Include padding in the element's total width and height */
 }
 
 .testimonial-card {
@@ -815,25 +817,32 @@
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    margin: 1rem;
     position: absolute;
-    width: calc(100% - 2rem);
+    top: 0;
+    left: 10%; /* Adjusted to align with padding */
+    width: 80%; /* Adjusted width */
     opacity: 0;
-    transform: translateX(100%);
-    transition: all 0.5s ease;
+    transform: translateX(0%); /* Start at 0 and use JS for initial positioning */
+    transition: all 0.8s ease;
+    display: none; /* Hide initially */
 }
 
 .testimonial-card.active {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0%);
+    display: block;
 }
 
 .testimonial-card.prev {
     transform: translateX(-100%);
+    opacity: 0;
+    display: none;
 }
 
 .testimonial-card.next {
     transform: translateX(100%);
+    opacity: 0;
+    display: none;
 }
 
 .testimonial-text {
@@ -888,37 +897,40 @@
 .testimonial-dots {
     display: flex;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
     margin-top: 2rem;
 }
 
 .dot {
     width: 12px;
     height: 12px;
-    background-color: var(--gray);
+    background-color: #e0e0e0;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .dot.active {
-    background-color: var(--primary);
+    background-color: #1E90FF;
     transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(30, 144, 255, 0.4);
 }
 
 .testimonial-nav {
     position: absolute;
     top: 50%;
+    left: 0;
+    right: 0;
     transform: translateY(-50%);
-    width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 1rem;
+    padding: 0 5%; /* Adjust padding */
     z-index: 10;
+    pointer-events: none; /* Allow clicks to pass through nav div */
 }
 
 .testimonial-nav button {
-    background: var(--primary);
+    background: #1E90FF;
     color: white;
     border: none;
     width: 40px;
@@ -929,11 +941,14 @@
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);
+    pointer-events: all; /* Re-enable clicks for buttons */
 }
 
 .testimonial-nav button:hover {
-    background: var(--primary-dark);
+    background: #4169E1;
     transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(30, 144, 255, 0.4);
 }
 
 /* Remove unused animations */
@@ -950,6 +965,118 @@
 /* Use will-change for better performance */
 .project-card:hover, .skill-category:hover {
     will-change: transform;
+}
+
+/* Project section button styles */
+.project-card .btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #1E90FF; /* Brighter blue color */
+    color: white;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);
+    margin-top: 15px;
+    text-align: center;
+    width: 100%;
+    max-width: 200px;
+    position: relative;
+    z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.project-card .btn:hover {
+    background-color: #4169E1; /* Royal blue on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(30, 144, 255, 0.4);
+    color: white;
+}
+
+.project-card .btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 10px rgba(30, 144, 255, 0.3);
+}
+
+.project-card .btn-outline {
+    background-color: transparent;
+    border: 2px solid #1E90FF;
+    color: #1E90FF;
+}
+
+.project-card .btn-outline:hover {
+    background-color: #1E90FF;
+    color: white;
+    border-color: #1E90FF;
+}
+
+/* Add a subtle glow effect on hover */
+.project-card .btn::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #1E90FF, #4169E1);
+    border-radius: 26px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card .btn:hover::after {
+    opacity: 1;
+}
+
+/* Project card hover effect */
+.project-card {
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Project content spacing */
+.project-content {
+    padding: 25px;
+}
+
+.project-content h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.project-content p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Tech tags styling */
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tech-tag {
+    padding: 6px 12px;
+    background-color: #e8f5e9;
+    color: #4CAF50;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 500;
 }
     </style>
 </head>
@@ -1170,6 +1297,37 @@
                         <a href="https://github.com/kamleshthink/Cancer-detection-ML-model" class="btn btn-outline" target="_blank" rel="noopener noreferrer">View Project</a>
                     </div>
                 </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="jobportal-free-template.jpg.avif" alt="Jobportal Website">
+                    </div>
+                    <div class="project-content">
+                        <h3>Jobportal Website</h3>
+                        <p>This project is a professional-grade Job Portal web application designed for both job seekers and employers. It offers a seamless experience for job searching, resume uploading, job posting, and application tracking. With its clean UI and robust backend, it surpasses traditional portals like Naukri.com and Indeed in performance and usability.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">ReactJS</span>
+                            <span class="tech-tag">NodeJS</span>
+                            <span class="tech-tag">ExpressJS</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                        <a href="#" class="btn btn-outline" target="_blank" rel="noopener noreferrer">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="ChatGPT Image May 20, 2025, 02_13_05 AM.jpg" alt="Newsportal Website (Satya News)">
+                    </div>
+                    <div class="project-content">
+                        <h3>Newsportal Website (Satya News)</h3>
+                        <p>Satya News is a feature-rich, real-time News Portal that delivers breaking stories, national/international headlines, and regional updates with exceptional UI and loading speed. Built for scalability and high readership engagement, it provides a better user experience than many mainstream news platforms.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">ReactJS</span>
+                            <span class="tech-tag">NodeJS</span>
+                            <span class="tech-tag">WebSockets</span>
+                        </div>
+                        <a href="#" class="btn btn-outline" target="_blank" rel="noopener noreferrer">View Project</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1233,13 +1391,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const dots = document.querySelectorAll('.dot');
     let currentIndex = 0;
     let isAnimating = false;
+    let autoSlideInterval;
     
     // Create navigation buttons
     const slider = document.querySelector('.testimonials-slider');
     const navHTML = `
         <div class="testimonial-nav">
-            <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
-            <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+            <button class="prev-btn" aria-label="Previous testimonial"><i class="fas fa-chevron-left"></i></button>
+            <button class="next-btn" aria-label="Next testimonial"><i class="fas fa-chevron-right"></i></button>
         </div>
     `;
     slider.insertAdjacentHTML('beforeend', navHTML);
@@ -1248,71 +1407,121 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.querySelector('.next-btn');
     
     // Initialize first testimonial
-    testimonialCards[0].classList.add('active');
+    // Position others off-screen and hide
+    testimonialCards.forEach((card, i) => {
+        card.style.position = 'absolute'; // Ensure absolute positioning
+        card.style.top = '0';
+        card.style.left = '10%'; // Align with padding
+        card.style.width = '80%'; // Adjusted width
+        card.style.transition = 'none'; // Disable transition initially
+
+        if (i === 0) {
+            card.classList.add('active');
+            card.style.opacity = '1';
+            card.style.transform = 'translateX(0)';
+            card.style.display = 'block';
+        } else {
+            card.style.opacity = '0';
+            card.style.transform = 'translateX(100%)'; // Initially off-screen to the right
+            card.style.display = 'none';
+        }
+    });
     
     // Function to show testimonial by index
     function showTestimonial(index, direction) {
         if (isAnimating) return;
         isAnimating = true;
         
-        // Remove active class from current card
-        testimonialCards[currentIndex].classList.remove('active');
-        testimonialCards[currentIndex].classList.add(direction === 'next' ? 'prev' : 'next');
-        
-        // Add active class to new card
-        testimonialCards[index].classList.add('active');
-        testimonialCards[index].classList.remove(direction === 'next' ? 'next' : 'prev');
-        
-        // Update dots
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
+        const currentCard = testimonialCards[currentIndex];
+        const nextCard = testimonialCards[index];
+
+        // Hide all cards first
+        testimonialCards.forEach(card => {
+            card.style.display = 'none';
         });
+
+        // Position the next card off-screen based on direction
+        if (direction === 'next') {
+            nextCard.style.transform = 'translateX(100%)';
+        } else {
+            nextCard.style.transform = 'translateX(-100%)';
+        }
+        nextCard.style.opacity = '0';
+        nextCard.style.display = 'block'; // Show the next card
         
-        currentIndex = index;
-        
-        // Reset animation flag after transition
+        // Use a small timeout to re-enable transition and trigger the animation
         setTimeout(() => {
-            isAnimating = false;
-        }, 500);
+            // Slide the next card in
+            nextCard.style.transition = 'all 0.8s ease';
+            nextCard.style.transform = 'translateX(0%)';
+            nextCard.style.opacity = '1';
+            
+            // Update dots
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            
+            currentIndex = index;
+            
+            // Reset animation flag after transition
+            setTimeout(() => {
+                isAnimating = false;
+            }, 800); // Match this duration with the transition time
+            
+        }, 50);
+    }
+
+    // Function to start auto slide
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(() => {
+            const nextIndex = (currentIndex + 1) % testimonialCards.length;
+            showTestimonial(nextIndex, 'next');
+        }, 5000); // Change slide every 5 seconds
+    }
+    
+    // Function to stop auto slide
+    function stopAutoSlide() {
+        clearInterval(autoSlideInterval);
     }
     
     // Add click event to dots
     dots.forEach((dot, i) => {
         dot.addEventListener('click', () => {
-            if (i === currentIndex) return;
+            if (i === currentIndex || isAnimating) return;
             const direction = i > currentIndex ? 'next' : 'prev';
             showTestimonial(i, direction);
+            stopAutoSlide();
+            startAutoSlide();
         });
     });
     
     // Add click events to navigation buttons
     prevBtn.addEventListener('click', () => {
+        if (isAnimating) return;
         const prevIndex = (currentIndex - 1 + testimonialCards.length) % testimonialCards.length;
         showTestimonial(prevIndex, 'prev');
+        stopAutoSlide();
+        startAutoSlide();
     });
     
     nextBtn.addEventListener('click', () => {
+        if (isAnimating) return;
         const nextIndex = (currentIndex + 1) % testimonialCards.length;
         showTestimonial(nextIndex, 'next');
+        stopAutoSlide();
+        startAutoSlide();
     });
     
-    // Auto slide testimonials
-    let autoSlideInterval = setInterval(() => {
-        const nextIndex = (currentIndex + 1) % testimonialCards.length;
-        showTestimonial(nextIndex, 'next');
-    }, 5000);
+    // Start auto slide
+    startAutoSlide();
     
     // Pause auto slide on hover
-    slider.addEventListener('mouseenter', () => {
-        clearInterval(autoSlideInterval);
-    });
+    slider.addEventListener('mouseenter', stopAutoSlide);
+    slider.addEventListener('mouseleave', startAutoSlide);
     
-    slider.addEventListener('mouseleave', () => {
-        autoSlideInterval = setInterval(() => {
-            const nextIndex = (currentIndex + 1) % testimonialCards.length;
-            showTestimonial(nextIndex, 'next');
-        }, 5000);
-    });
+    // Pause auto slide when user is interacting with touch devices
+    slider.addEventListener('touchstart', stopAutoSlide);
+    slider.addEventListener('touchend', startAutoSlide);
 });
 </script>
 
@@ -1654,33 +1863,47 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         document.head.appendChild(animationStyle);
         
-        // Typing animation for hero section
-        document.addEventListener('DOMContentLoaded', () => {
-            const heroTitle = document.querySelector('.hero-text h1');
-            const originalText = heroTitle.innerHTML;
-            const nameSpan = heroTitle.querySelector('span');
-            const nameText = nameSpan.textContent;
-            
-            // Start with just "Hi, I'm "
-            heroTitle.innerHTML = "Hi, I'm ";
-            
-            // Create a new span for the name
-            const typingSpan = document.createElement('span');
-            typingSpan.style.color = 'var(--primary)';
-            heroTitle.appendChild(typingSpan);
-            
-            // Typing animation
-            let charIndex = 0;
-            const typingInterval = setInterval(() => {
-                typingSpan.textContent += nameText.charAt(charIndex);
-                charIndex++;
-                
-                if (charIndex >= nameText.length) {
-                    clearInterval(typingInterval);
-                }
-            }, 100);
-        });
-        
+        // Typing animation for hero section name
+        const heroTitleSpan = document.querySelector('.hero-text h1 span');
+        const originalNameText = "Kamlesh Sharma"; // Use plain text for animation
+        let nameCharIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 150; // Speed in milliseconds
+
+        function typeName() {
+            const currentText = isDeleting 
+                ? originalNameText.substring(0, nameCharIndex--)
+                : originalNameText.substring(0, nameCharIndex++);
+
+            heroTitleSpan.textContent = currentText;
+
+            let speed = typingSpeed;
+
+            if (isDeleting) {
+                speed /= 2; // Faster deleting speed
+            }
+
+            if (!isDeleting && nameCharIndex === originalNameText.length) {
+                // Typed out, pause before deleting
+                speed = 2000; // Pause at the end
+                isDeleting = true;
+            } else if (isDeleting && nameCharIndex === 0) {
+                // Deleted, pause before typing again
+                isDeleting = false;
+                speed = 500; // Pause before typing
+            }
+
+            setTimeout(typeName, speed);
+        }
+
+        // Start the typing animation after the page loads
+        // Ensure the span is initially empty before typing starts
+        if (heroTitleSpan) { // Add a check to ensure the element exists
+             heroTitleSpan.textContent = '';
+             typeName();
+        }
+
+
         // Project filter functionality
         document.addEventListener('DOMContentLoaded', () => {
             // Create filter buttons if needed
