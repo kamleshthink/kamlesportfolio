@@ -1865,41 +1865,59 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Typing animation for hero section name
         const heroTitleSpan = document.querySelector('.hero-text h1 span');
-        const originalNameText = "Kamlesh Sharma"; // Use plain text for animation
+        // Use plain text for animation, keep original for reference if needed
+        const originalNameText = "Kamlesh Sharma"; 
         let nameCharIndex = 0;
         let isDeleting = false;
         let typingSpeed = 150; // Speed in milliseconds
+        let pauseAfterType = 2000; // Pause after typing full name
+        let pauseAfterDelete = 500; // Pause after deleting full name
 
         function typeName() {
-            const currentText = isDeleting 
-                ? originalNameText.substring(0, nameCharIndex--)
-                : originalNameText.substring(0, nameCharIndex++);
-
+            const currentText = originalNameText.substring(0, nameCharIndex);
             heroTitleSpan.textContent = currentText;
 
             let speed = typingSpeed;
 
             if (isDeleting) {
                 speed /= 2; // Faster deleting speed
+                 // Keep color pink when deleting after full name typed
+                if (nameCharIndex === 0) {
+                    heroTitleSpan.style.color = 'var(--primary)'; // Reset color when fully deleted
+                    isDeleting = false; // Start typing again
+                    speed = pauseAfterDelete; // Pause before typing
+                    nameCharIndex++; // Start from the first character
+                } else {
+                    nameCharIndex--; // Continue deleting
+                }
+            } else {
+                // Typing
+                if (nameCharIndex === originalNameText.length) {
+                     // Finished typing, change color and pause
+                    speed = pauseAfterType; // Pause at the end
+                    isDeleting = true;
+                    heroTitleSpan.style.color = '#FF69B4'; // Change color to pink
+                    nameCharIndex--; // Start deleting from the last character
+
+                } else {
+                    nameCharIndex++; // Continue typing
+                }
             }
 
-            if (!isDeleting && nameCharIndex === originalNameText.length) {
-                // Typed out, pause before deleting
-                speed = 2000; // Pause at the end
-                isDeleting = true;
-            } else if (isDeleting && nameCharIndex === 0) {
-                // Deleted, pause before typing again
-                isDeleting = false;
-                speed = 500; // Pause before typing
+            // Schedule the next step only if we haven't reached the end of typing or beginning of deleting
+            // The logic for setting isDeleting and adjusting nameCharIndex handles the transitions
+            if (typeof speed !== 'undefined') { // Ensure speed is set before calling setTimeout
+                setTimeout(typeName, speed);
             }
 
-            setTimeout(typeName, speed);
         }
 
         // Start the typing animation after the page loads
         // Ensure the span is initially empty before typing starts
         if (heroTitleSpan) { // Add a check to ensure the element exists
              heroTitleSpan.textContent = '';
+             // Set initial color to primary blue
+             heroTitleSpan.style.color = 'var(--primary)';
              typeName();
         }
 
