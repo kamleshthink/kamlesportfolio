@@ -592,16 +592,37 @@
                 padding-right: 0;
             }
             
-            .timeline-item:nth-child(even) {
-                left: 0;
-            }
-            
             .timeline::after {
                 left: 0;
             }
             
             .timeline-item::after {
                 left: -10px !important;
+            }
+
+            /* Adjust testimonial card padding and text size for smaller screens */
+            .testimonial-card {
+                padding: 1.5rem;
+            }
+
+            .testimonial-text {
+                font-size: 1rem;
+            }
+
+            .testimonial-author {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 0.8rem;
+            }
+            
+            .testimonial-author img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .testimonial-author h4 {
+                margin-bottom: 0.1rem;
             }
         }
         
@@ -649,6 +670,42 @@
                 flex-direction: column;
                 gap: 2rem;
             }
+
+            /* Further adjustments for very small screens */
+            .testimonial-card {
+                padding: 1rem;
+            }
+            .testimonial-text {
+                font-size: 0.9rem;
+            }
+
+             .testimonial-nav button {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+             }
+
+             .testimonial-nav {
+                padding: 0 2%;
+             }
+        }
+
+        @media (max-width: 480px) {
+            /* More adjustments for extra small screens */
+            .testimonial-card {
+                padding: 0.8rem;
+            }
+            .testimonial-text {
+                font-size: 0.85rem;
+            }
+            .testimonial-nav button {
+                width: 25px;
+                height: 25px;
+                font-size: 0.7rem;
+            }
+             .testimonial-dots {
+                gap: 0.5rem;
+             }
         }
 
        /* Additional styles for enhanced UI/UX */
