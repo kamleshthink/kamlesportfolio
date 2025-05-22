@@ -485,7 +485,7 @@
         
         .contact-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 4rem;
         }
         
@@ -607,30 +607,101 @@
                 gap: 2rem;
             }
             
-            .hero-img, .about-img {
+            .hero-img {
                 order: -1;
+                text-align: center; /* Center image container content */
             }
             
+            .about-img {
+                 order: -1;
+                 text-align: center; /* Center image container content */
+            }
+
             .hero-img img, .about-img img {
                 width: 80%;
+                margin: 0 auto; /* Center the image itself if it's an inline/inline-block element */
+                display: block; /* Ensure margin auto works */
             }
             
             .contact-content {
                 grid-template-columns: 1fr;
             }
             
-            .timeline-item {
-                width: 100%;
-                padding-left: 2rem;
-                padding-right: 0;
+            /* Adjust Timeline for smaller screens */
+            .timeline::after {
+                left: 20px; /* Move vertical line to the left */
+                margin-left: 0; /* Remove margin */
             }
             
-            .timeline::after {
-                left: 0;
+            .timeline-item {
+                width: 100%; /* Make items full width */
+                padding-left: 40px; /* Add padding to the left to make space for the line and dot */
+                padding-right: 1rem; /* Add some padding on the right */
+                left: 0; /* Ensure all items are on the left side relative to the container */
+                margin-bottom: 1.5rem; /* Reduce margin between items */
+                position: relative; /* Ensure positioning context for dot */
+                text-align: left; /* Align text to the left */
+            }
+            
+             .timeline-item:nth-child(odd) {
+                left: 0; /* Ensure odd items are on the left */
+                padding-right: 1rem; /* Add padding on the right for content */
+                text-align: left; /* Align text to the left */
+            }
+            
+             .timeline-item:nth-child(even) {
+                left: 0; /* Ensure even items are also on the left */
+                padding-left: 40px; /* Keep padding on the left */
+                text-align: left; /* Align text to the left */
             }
             
             .timeline-item::after {
-                left: -10px !important;
+                width: 16px; /* Adjust dot size */
+                height: 16px; /* Adjust dot size */
+                border: 3px solid var(--primary); /* Adjust border */
+                border-radius: 50%;
+                background-color: white; /* Dot background */
+                position: absolute;
+                left: 14px !important; /* Position the dot on the vertical line */
+                top: 15px; /* Adjust vertical position */
+                z-index: 1; /* Ensure dot is above line */
+            }
+
+            .timeline-item:nth-child(odd)::after {
+                right: auto; /* Remove right positioning */
+                left: 14px !important; /* Position dot on the left side of the item */
+            }
+
+             .timeline-item:nth-child(even)::after {
+                left: 14px !important; /* Position dot on the left side of the item */
+            }
+
+            .timeline-content {
+                 padding: 1rem; /* Reduce padding for smaller screens */
+                 text-align: left; /* Ensure content text aligns correctly within the item */
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content {
+                 text-align: left; /* Ensure content text aligns correctly within the item */
+            }
+
+            .timeline-date {
+                 margin-bottom: 0.5rem; /* Reduce margin below date */
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 2rem; /* Adjust padding as needed */
+                padding-right: 0;
+                left: 0; /* Stack all timeline items on the left */
+            }
+            
+            .timeline::after {
+                left: 10px; /* Move the vertical line to the left */
+            }
+            
+            .timeline-item::after {
+                left: 4px !important; /* Position the dot correctly relative to the new line position */
             }
 
             /* Adjust testimonial card padding and text size for smaller screens */
@@ -702,6 +773,11 @@
             .footer-content {
                 flex-direction: column;
                 gap: 2rem;
+            }
+
+            /* Ensure container padding is appropriate for small screens */
+            .container {
+                padding: 0 1rem; /* Adjust container padding for smaller screens */
             }
 
             /* Further adjustments for very small screens */
